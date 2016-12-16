@@ -1,4 +1,4 @@
-package dotax.dotaxTest;
+﻿package dotax.dotaxTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -114,7 +114,7 @@ public class naverHealth
                 new WebDriverWait(driver,500).until(ExpectedConditions.elementToBeClickable(By.cssSelector("ul.type06_headline li:nth-child(1) dl a")));   //다음페이지 첫 번째 아티클 로드 될때까지 기다리기  
             }         
         }
-        catch(NoSuchElementException e){      //만약 Element가 검색이 안된다면? 끝내버리기ㅋ
+        catch(NoSuchElementException e){      //만약 Element가 검색이 안된다면 끝!
            System.out.printf("\n\n");
            System.out.println("!!-----------------------------------------끝--------------------------------------!!");
            driver.findElement(By.xpath("//*[@id='main_content']/div[4]/a["+k+"]")).click();

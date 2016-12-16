@@ -1,4 +1,4 @@
-package dotax.dotaxTest;
+﻿package dotax.dotaxTest;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -35,7 +35,7 @@ public class happyCampus
        System.out.println ( today );
        FileWriter fileWriter = new FileWriter(new File("HappyCampus"+today+".txt"), true);
        BufferedWriter writer = new BufferedWriter(fileWriter);
-       //네이버 건강정보 페이지 들어가기
+       //해피캠퍼스 페이지 들어가기
         driver.get("http://www.happycampus.com/");
         new WebDriverWait(driver,500).until(ExpectedConditions.elementToBeClickable(By.id("searchSubmit")));
         driver.findElement(By.id("inputQu")).sendKeys(searchList[0]+" 효능");
@@ -79,7 +79,7 @@ public class happyCampus
                           //System.out.println("끝낫음 담 Page ㄱ");
                        }
                     }
-                   //driver.findElement(By.cssSelector("#yw1 span:nth-child("+(j+1)+") a")).click();   //다음페이지 클릭
+                   
                    nextPage = driver.findElement(By.cssSelector("#yw1 span:nth-child("+(j+1)+") a")).getAttribute("href");
                    driver.get(nextPage);
                    new WebDriverWait(driver,500).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li:nth-child(1) dl dt a")));
