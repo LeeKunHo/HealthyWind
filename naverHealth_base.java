@@ -60,7 +60,7 @@ public class naverHealth
                    writer.newLine();
                    writer.write(content[i-1+(j-2)*10]);
                    writer.newLine();
-			//이것은 작동 잘됨.
+
                    
                    writer.flush();
                    
@@ -77,12 +77,45 @@ public class naverHealth
                 
                 for(int i=1; i<11; i++)
                 {
-			//엘리먼트 가져오기, 페이지넘기기 미구현 이건 다음페이지에 해당함
+                   driver.findElement(By.cssSelector("ul.type06 li:nth-child("+i+") dl a")).click();
+                    
+                    title2[i-1+(j-2)*10] = driver.findElement(By.id("articleTitle")).getText();
+                    content2[i-1+(j-2)*10] = driver.findElement(By.id("articleBodyContents")).getText();
+                    
+                    System.out.printf("------------------------------- "+(j-1)+" 번째 페이지 "+(i+10)+" 번째 글 "+"-------------------------------\n\n");
+                    System.out.printf("%s\n%s\n", title2[i-1+(j-2)*10],content2[i-1+(j-2)*10]);
+                    writer.newLine();
+                    writer.newLine();
+                    writer.write("------------------------------- "+(j-1)+" 번째 페이지 "+(i+10)+" 번째 글 "+"-------------------------------\n\n");
+                    writer.newLine();
+                   writer.write(title[i-1+(j-2)*10]);
+                   writer.newLine();
+                   writer.write(content[i-1+(j-2)*10]);
+
+                   
+                   writer.flush();
+                   
+                    
+                    Thread.sleep(100);
+                    driver.navigate().back();   //뒤로가기
+                    Thread.sleep(100);         //wait for element로 바꿀까...?
+                    
+                    /*             
+                    if(j<4)
+                       new WebDriverWait(driver, 50).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.paging a:nth-child("+j+")")));
+                    else
+                       new WebDriverWait(driver, 50).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.paging a:nth-child("+(j-2)+")")));
+                    //driver.findElement(By.cssSelector("ul.type06_headline li:nth-child("+i+") dl a")).click()
+                     */
+                    new WebDriverWait(driver, 50).until(ExpectedConditions.elementToBeClickable(By.cssSelector("ul.type06_headline li:nth-child(1) dl a")));
                 }                
                         
                 driver.findElement(By.cssSelector("div.paging a:nth-child("+j+")")).click();   //다음페이지 클릭
                 new WebDriverWait(driver,500).until(ExpectedConditions.elementToBeClickable(By.cssSelector("ul.type06_headline li:nth-child(1) dl a")));   //다음페이지 첫 번째 아티클 로드 될때까지 기다리기  
             }         
+        }
+        catch(NoSuchElementException e){      //만약 Element가 검색이 안된다면? 
+           //Happycampus와 같이 Element가 없을때는..?
         }
         
         }
