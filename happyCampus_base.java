@@ -51,7 +51,44 @@ public class happyCampus
         System.out.printf("\n\n");
         for(int k=1;k<5;k++) //k는 searchList 안에 있는 리스트 개수
         {
-         	//어떻게 해야 serachList안에 들어있는 단어들을 가져와야할까(검색방법 강구필요)  
+         	try{
+               for(int j=2; j<5; j++)
+                {
+                   for(int i=1;i<40;i++)
+                    {   
+                       try{
+                          title[i-1] = driver.findElement(By.cssSelector("li:nth-child("+i+") dl dt a")).getText();
+                          content[i-1] = driver.findElement(By.cssSelector("li:nth-child("+i+") dl dd.d_con")).getText();
+                          address[i-1] = driver.findElement(By.cssSelector("li:nth-child("+i+") dl dt a")).getAttribute("href");
+                                    
+	                    	writer.write(title[i-1]);
+	                  		writer.newLine();
+	                  		writer.write(content[i-1]);
+	                  		writer.newLine();
+	                  		writer.write(address[i-1]);
+	                  		writer.newLine();
+	                  		writer.newLine();
+	
+	                  		
+	                  		writer.flush();
+                          System.out.println(title[i-1]);
+                          System.out.println(content[i-1]);
+                          System.out.println(address[i-1]);
+                          System.out.printf("\n");
+                       }catch(NoSuchElementException e){
+                          //System.out.println("끝낫음 담 Page ㄱ");
+                       }
+                    }
+                   //driver.findElement(By.cssSelector("#yw1 span:nth-child("+(j+1)+") a")).click();   //다음페이지 클릭
+                   nextPage = driver.findElement(By.cssSelector("#yw1 span:nth-child("+(j+1)+") a")).getAttribute("href");
+                   driver.get(nextPage);
+                   new WebDriverWait(driver,500).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li:nth-child(1) dl dt a")));
+                    Thread.sleep(100);
+                }
+            }
+            catch(NoSuchElementException e){
+              	//엘리먼트가없을때는..?
+            }    
 	}
     }
 }
